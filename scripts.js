@@ -83,6 +83,33 @@ function calcularFactorial() {
         `${numero}! = ${resultado}`;
 }
 
+// 7. EJERCICIO 1: Generar paleta de colores
+function generarColor(){
+	var simbolos, color;
+	simbolos = "0123456789ABCDEF";
+	color = "#";
+
+	for(var i = 0; i < 6; i++){
+		color = color + simbolos[Math.floor(Math.random() * 16)];
+	}
+    return color
+}
+
+function generarPaletaColores() {
+    const listaColores = [];
+    for (let i = 0; i < 5; i++) {
+        listaColores.push(generarColor());
+    }
+    let paletaHTML = `<div style="display: flex; gap: 10px;"> 
+        ${listaColores.map(color => `
+            <div style="width: 50px; height: 50px; background-color: ${color}; border: 1px solid #000;" 
+                 title="${color}"></div>
+        `).join('')}
+    </div>`;
+    const resultado = document.getElementById('resultadoColores');
+    resultado.innerHTML = paletaHTML;
+}
+
 // Función para cambiar secciones
 function cambiarSeccion(seccionId) {
     document.querySelectorAll('.seccion').forEach(sec => sec.classList.remove('active'));
