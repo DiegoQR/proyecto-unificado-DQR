@@ -95,6 +95,14 @@ function generarColor(){
     return color
 }
 
+function copyTexttoClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert(`Color ${text} copiado al portapapeles`);
+    }).catch(err => {
+        alert('Error al copiar el color: ', err);
+    });
+}
+
 function generarPaletaColores() {
     const listaColores = [];
     for (let i = 0; i < 5; i++) {
@@ -102,8 +110,8 @@ function generarPaletaColores() {
     }
     let paletaHTML = `<div style="display: flex; gap: 10px;"> 
         ${listaColores.map(color => `
-            <div style="width: 50px; height: 50px; background-color: ${color}; border: 1px solid #000;" 
-                 title="${color}"></div>
+            <div class="contenedor-color" style="background-color: ${color};" 
+                 title="${color}"><button class="boton-color" onclick="copyTexttoClipboard('${color}')"></button></div>
         `).join('')}
     </div>`;
     const resultado = document.getElementById('resultadoColores');
