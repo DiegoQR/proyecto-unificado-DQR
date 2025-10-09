@@ -83,7 +83,7 @@ function calcularFactorial() {
         `${numero}! = ${resultado}`;
 }
 
-// 7. EJERCICIO 1: Generar paleta de colores
+// EJERCICIO 1: Generar paleta de colores
 function generarColor(){
 	var simbolos, color;
 	simbolos = "0123456789ABCDEF";
@@ -95,7 +95,7 @@ function generarColor(){
     return color
 }
 
-function copyTexttoClipboard(text) {
+function copiarTextoClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         alert(`Color ${text} copiado al portapapeles`);
     }).catch(err => {
@@ -111,11 +111,32 @@ function generarPaletaColores() {
     let paletaHTML = `<div style="display: flex; gap: 10px;"> 
         ${listaColores.map(color => `
             <div class="contenedor-color" style="background-color: ${color};" 
-                 title="${color}"><button class="boton-color" onclick="copyTexttoClipboard('${color}')"></button></div>
+                 title="${color}"><button class="boton-color" onclick="copiarTextoClipboard('${color}')"></button></div>
         `).join('')}
     </div>`;
     const resultado = document.getElementById('resultadoColores');
     resultado.innerHTML = paletaHTML;
+}
+
+// EJERCICIO 2: Lista de tareas
+const tareas = [];
+function renderizarTareas(tareas) {
+    const listaHTML = tareas.map((tarea, index) => `
+        <li>${tarea} <button class="boton" onclick="eliminarTarea(${index})">Eliminar</button></li>
+    `).join('');
+    document.getElementById('resultadoLista').innerHTML = listaHTML;
+}
+
+function eliminarTarea(index) {
+    tareas.splice(index, 1);
+    renderizarTareas(tareas);
+}
+
+function anadirTarea() {
+    const tarea = document.getElementById('textoTarea').value;
+    tareas.push(tarea);
+    document.getElementById('textoTarea').value = '';
+    renderizarTareas(tareas);
 }
 
 // Función para cambiar secciones
