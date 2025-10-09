@@ -286,3 +286,26 @@ async function citaPorPersonaje() {
         document.getElementById('simpsonCharacterResult').innerHTML = `Error: ${error.message}`;
     }
 }
+
+// EJ 3: Recuperar episodio
+async function buscarEpisodio() {
+    const episodioNum = document.getElementById('numEpisodio').value;
+    try {
+        const response = await fetch(`https://thesimpsonsapi.com/api/episodes/${episodioNum}`);
+        if (!response.ok) throw new Error('No se pudo obtener el episodio');
+        const episodio = await response.json();
+        
+        const html = `
+        <h3>Temporada ${episodio.season}, Episodio ${episodioNum}: ${episodio.name}</h3>
+        <div class="ejemplo-api">
+            <p><strong>Sinopsis:</strong> ${episodio.synopsis || 'Desconocida'}</p>
+            <p><strong>Fecha de salida:</strong> ${episodio.airdate ?? 'N/A'} </p>
+            <img src="https://cdn.thesimpsonsapi.com/500${episodio.image_path}" 
+                    alt="${episodio.name}" class="img-simpson">
+        </div>
+        `;
+        document.getElementById('simpsonEpisodeResult').innerHTML = html;
+    } catch (error) {
+        document.getElementById('simpsonEpisodeResult').innerHTML = `Error: ${error.message}`;
+    }
+}
